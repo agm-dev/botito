@@ -34,6 +34,7 @@ const commandError = (command, msg) => {
 }
 
 const putoHandler = (text, msg) => {
+  if (!text) return msg.reply.text(lang.PUTO_NO_TEXT, { asReply: true })
   const translatedText = puto.translate(text)
   return msg.reply.text(translatedText, { asReply: true })
 }
