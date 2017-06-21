@@ -1,0 +1,42 @@
+{
+  "name": "botito",
+  "version": "1.0.0",
+  "description": "A really nice modular bot",
+  "engines": {
+    "node": ">= 7.6.0"
+  },
+  "main": "bot.js",
+  "scripts": {
+    "dev": "\"npm run watch\"",
+    "watch": "nodemon ./bot.js",
+    "start": "\"npm run prod\"",
+    "prod": "node ./bot.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agm-dev/botito.git"
+  },
+  "keywords": [
+    "bot",
+    "modular",
+    "robot",
+    "telegram"
+  ],
+  "author": "Adrián Gonzalo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agm-dev/botito/issues"
+  },
+  "homepage": "https://github.com/agm-dev/botito#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "mongoose": "^4.10.7",
+    "mongoose-mongodb-errors": "0.0.2",
+    "telebot": "^1.2.2"
+  },
+  "devDependencies": {
+    "jest": "^20.0.4",
+    "nodemon": "^1.11.0"
+  }
+}
