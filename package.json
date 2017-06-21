@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/agm-dev/botito#readme",
   "dependencies": {
+    "adjetiveisor": "^2.0.0",
     "dotenv": "^4.0.0",
     "mongoose": "^4.10.7",
     "mongoose-mongodb-errors": "0.0.2",
