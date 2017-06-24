@@ -20,6 +20,7 @@ exports.textHandler = (msg) => {
 }
 
 exports.commandsHandler = (msg) => {
+  updateData(msg)
   const commandRegex = new RegExp('^/\\w*', 'gi')
   const matches = commandRegex.exec(msg.text)
   const command = (matches.length) ? matches[0] : ''
@@ -31,17 +32,28 @@ exports.commandsHandler = (msg) => {
   }
 }
 
+/*
+* This one adds a chat document if not exists
+* add user if not exists in chat.users
+* updates date on chat and user
+*/
 const updateData = async (msg) => {
   const data = formatData(msg)
   const chat = await TelegramChat.findOne({ chatId: data.chatId })
   if (!chat) {
-    console.log('storing new chat')
     const newChat = new TelegramChat(data)
     newChat.save()
   } else {
-    console.log('chat already exists')
-    // chat exists? create, update
-    // user is in the chat? create, update
+    chat.lastUpdate = msg.date * 1000
+    const user = chat.users.find(user => (user.userId === data.users[0].userId))
+    if (user) {
+      chat.users.map(u => {
+        if (u.userId === user.userId) u.lastUpdate = msg.date * 1000
+      })
+    } else {
+      chat.users.push(data.users[0])
+    }
+    chat.save()
   }
 }
 
