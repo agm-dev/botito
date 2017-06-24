@@ -1,4 +1,5 @@
 // Requires:
+const TelegramChat = require('../models/TelegramChat')
 const adjetiveisor = require('adjetiveisor')
 const lang = require('../lang/default.json')
 
@@ -14,6 +15,7 @@ exports.disconnectionHandler = () => {
 }
 
 exports.textHandler = (msg) => {
+  updateData(msg)
   return msg.reply.text('Ok bro', { asReply: false })
 }
 
@@ -26,6 +28,36 @@ exports.commandsHandler = (msg) => {
     case '/puto': putoHandler(text, msg); break
     case '/ping': pingHandler(msg); break
     default: commandError(command, msg)
+  }
+}
+
+const updateData = async (msg) => {
+  const data = formatData(msg)
+  const chat = await TelegramChat.findOne({ chatId: data.chatId })
+  if (!chat) {
+    console.log('storing new chat')
+    const newChat = new TelegramChat(data)
+    newChat.save()
+  } else {
+    console.log('chat already exists')
+    // chat exists? create, update
+    // user is in the chat? create, update
+  }
+}
+
+const formatData = (msg) => {
+  return {
+    chatId: msg.chat.id,
+    title: msg.chat.title,
+    type: msg.chat.type,
+    lastUpdate: msg.date * 1000,
+    users: [{
+      userId: msg.from.id,
+      name: msg.from.first_name,
+      username: msg.from.username,
+      lang: msg.from.language_code,
+      lastUpdate: msg.date * 1000
+    }]
   }
 }
 

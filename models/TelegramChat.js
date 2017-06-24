@@ -36,6 +36,11 @@ const TelegramChatSchema = new mongoose.Schema({
     required: 'TelegramChatSchema needs an id of chat',
     index: true
   },
+  title: { // chat.title in groups
+    type: String,
+    trim: true,
+    default: ''
+  },
   type: {
     type: String, // chat.type private or group
     required: 'TelegramChatSchema needs a type of chat',
