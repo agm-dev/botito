@@ -10,7 +10,7 @@ const telegramBot = new TeleBot({
   pluginConfig: {
     floodProtection: {
       interval: 1,
-      message: lang.FLOOD_PROTECTION
+      message: lang.FLOOD_PROTECTION['EN']
     }
   }
 })

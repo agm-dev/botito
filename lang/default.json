@@ -1,5 +1,14 @@
 {
-  "FLOOD_PROTECTION": "Too many messages, give me a break!",
-  "IS_NOT_ALLOWED": "is not allowed",
-  "PUTO_NO_TEXT": "you have to send me some text to translate"
+  "FLOOD_PROTECTION": {
+    "EN": "Too many messages, give me a break!",
+    "ES": "¡Demasiados mensajes, dame un respiro!"
+  },
+  "IS_NOT_ALLOWED": {
+    "EN": "is not allowed",
+    "ES": "no está permitido"
+  },
+  "PUTO_NO_TEXT": {
+    "EN": "you have to send me some text to translate",
+    "ES": "tienes que enviarme un texto para traducir"
+  }
 }

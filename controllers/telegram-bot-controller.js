@@ -74,11 +74,13 @@ const formatData = (msg) => {
 }
 
 const commandError = (command, msg) => {
-  return msg.reply.text(`${command} ${lang.IS_NOT_ALLOWED}`, { asReply: false })
+  const langCode = msg.from.language_code.toUpperCase()
+  return msg.reply.text(`${command} ${lang.IS_NOT_ALLOWED[langCode]}`, { asReply: false })
 }
 
 const putoHandler = (text, msg) => {
-  if (!text) return msg.reply.text(lang.PUTO_NO_TEXT, { asReply: true })
+  const langCode = msg.from.language_code.toUpperCase()
+  if (!text) return msg.reply.text(`${lang.PUTO_NO_TEXT[langCode]}`, { asReply: true })
   const translatedText = puto.translate(text)
   return msg.reply.text(translatedText, { asReply: true })
 }
