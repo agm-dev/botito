@@ -1,10 +1,13 @@
 // Requires:
 const TelegramChat = require('../models/TelegramChat')
 const adjetiveisor = require('adjetiveisor')
+const toValyrian = require('../utils/valyrian-translator')
 const lang = require('../lang/default.json')
 
 const puto = adjetiveisor()
+const jodido = adjetiveisor()
 puto.config({ ms: 'puto', mp: 'putos', fs: 'puta', fp: 'putas' })
+jodido.config({ ms: 'jodido', mp: 'jodidos', fs: 'jodida', fp: 'jodidas' })
 
 exports.connectionHandler = () => {
   console.log('Telegram bot is connected')
@@ -30,6 +33,20 @@ exports.commandsHandler = (msg) => {
     case '/ping': pingHandler(msg); break
     default: commandError(command, msg)
   }
+}
+
+exports.inlineQueryHandler = (msg, bot) => {
+  const query = msg.query
+  const answers = bot.answerList(msg.id, { cacheTime: 60 })
+  const putoTranslation = puto.translate(query)
+  const jodidoTranslation = jodido.translate(query)
+  const valyrianTranslation = toValyrian(query)
+
+  answers.addArticle(genArticle('query', 'puto translation', putoTranslation, putoTranslation))
+  answers.addArticle(genArticle('query2', 'jodido translation', jodidoTranslation, jodidoTranslation))
+  answers.addArticle(genArticle('query3', 'valyrian translation', valyrianTranslation, valyrianTranslation))
+
+  return bot.answerQuery(answers)
 }
 
 /*
@@ -71,6 +88,11 @@ const formatData = (msg) => {
       lastUpdate: msg.date * 1000
     }]
   }
+}
+
+// This is used to easy format article object in inline query.
+const genArticle = (id, title, description, text) => {
+  return {id, title, description, message_text: text}
 }
 
 const commandError = (command, msg) => {

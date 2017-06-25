@@ -19,5 +19,6 @@ telegramBot.on('connect', telegramBotController.connectionHandler)
 telegramBot.on('disconnect', telegramBotController.disconnectionHandler)
 telegramBot.on(/\/+/, telegramBotController.commandsHandler) // regex to match messages starting by / (commands)
 telegramBot.on(/^[^/]+/, telegramBotController.textHandler) // regex to match messages that not start by /
+telegramBot.on('inlineQuery', (msg) => telegramBotController.inlineQueryHandler(msg, telegramBot))
 
 module.exports = telegramBot
